@@ -4,23 +4,28 @@ const port = process.env.PORT || 5000;
 const cors = require("cors");
 require("dotenv").config();
 
-app.use(express.json());  
-// app.use(cors()); 
+app.use(express.json());
+// app.use(cors());
 
-app.use(cors({
-  origin: "http://localhost:3000",
-  origin: "http://localhost:5173",
-  methods: ["GET", "POST"]
-}));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "http://localhost:5173",
+      "https://update-page-nu.vercel.app",
+    ],
+    methods: ["GET", "POST"],
+  })
+);
 
-const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
 
 // Parse JSON and URL-encoded form data
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true })); 
+app.use(bodyParser.urlencoded({ extended: true }));
 
 //Razorpay Route
-const phonepeRoute = require('./routes/phonepe/phonepeRoute')
+const phonepeRoute = require("./routes/phonepe/phonepeRoute");
 app.use("/api", phonepeRoute);
 
 // Starting Server
