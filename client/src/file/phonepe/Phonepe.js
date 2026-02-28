@@ -20,7 +20,7 @@ const Phonepe = () => {
 
     try {
         const response = await axios.post(
-            "http://localhost:5000/api/payment",
+            `${process.env.REACT_APP_API_URL}/api/payment`,
             data
         );
 
