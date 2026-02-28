@@ -6,7 +6,7 @@ import phonepe from '../../image/phonepe.png'
 const Phonepe = () => {
     const [loading2, setLoading2] = useState(false);
 
-    const data ={
+    const data ={ 
         name: 'Waleed',
         amount: 1,
         number: '7498608775',
@@ -14,19 +14,24 @@ const Phonepe = () => {
         transactionId: 'T' + Date.now(),
     }
 
-    const handlePayment = (e)=>{
-        e.preventDefault();
-        setLoading2(true);
-        axios.post('api/payment', {...data}).then(res => {  
-        setTimeout(() => {
-            setLoading2(false);
-        }, 1500);
-        })
-        .catch(error => {
-            setLoading2(false)
-            console.error(error);
-        });   
+    const handlePayment = async (e) => {
+    e.preventDefault();
+    setLoading2(true);
+
+    try {
+        const response = await axios.post(
+            "http://localhost:5000/api/payment",
+            data
+        );
+
+        // 🔥 IMPORTANT LINE
+        window.location.href = response.data.url;
+
+    } catch (error) {
+        console.error(error);
+        setLoading2(false);
     }
+};
   return (
     <>
     <div className='main'>
@@ -60,8 +65,7 @@ const Phonepe = () => {
             </form>
         </div>
     </div>
-    <p className='m-0'>@codesense24</p>
-    <p className='' style={{fontSize: "14px"}}>Subscribe my youtube channel</p>
+    
     </>
   )
 }
