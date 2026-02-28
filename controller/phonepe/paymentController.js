@@ -90,10 +90,11 @@ const checkStatus = async (req, res) => {
     .request(options)
     .then(async (response) => {
       if (response.data.success === true) {
-        const url = `http://localhost:3000/success`;
+        const url = `${import.meta.env.VITE_API_URL}/success`;
         return res.redirect(url);
       } else {
-        const url = `http://localhost:3000/failure`;
+        // const url = `http://localhost:3000/failure`;
+        const url = `${import.meta.env.VITE_API_URL}/failure`;
         return res.redirect(url);
       }
     })
